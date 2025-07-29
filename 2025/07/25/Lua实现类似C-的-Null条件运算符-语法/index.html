@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lhh2001.github.io/images/avatar.jpg">
 <meta property="article:published_time" content="2025-07-25T08:21:36.000Z">
-<meta property="article:modified_time" content="2025-07-29T02:44:04.923Z">
+<meta property="article:modified_time" content="2025-07-29T02:49:52.009Z">
 <meta property="article:author" content="lhh">
 <meta property="article:tag" content="Lua">
 <meta name="twitter:card" content="summary">
@@ -49,7 +49,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"lhh","sameAs":[],"image":"/images/avatar.jpg"},"dateCreated":"2025-07-25T16:21:36+08:00","dateModified":"2025-07-29T10:44:04+08:00","datePublished":"2025-07-25T16:21:36+08:00","description":"","headline":"Lua实现类似C#的?.(Null条件运算符)语法","mainEntityOfPage":{"@type":"WebPage","@id":"https://lhh2001.github.io/2025/07/25/Lua%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BCC-%E7%9A%84-Null%E6%9D%A1%E4%BB%B6%E8%BF%90%E7%AE%97%E7%AC%A6-%E8%AF%AD%E6%B3%95/"},"publisher":{"@type":"Organization","name":"lhh","sameAs":[],"image":"/images/avatar.jpg","logo":{"@type":"ImageObject","url":"/images/avatar.jpg"}},"url":"https://lhh2001.github.io/2025/07/25/Lua%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BCC-%E7%9A%84-Null%E6%9D%A1%E4%BB%B6%E8%BF%90%E7%AE%97%E7%AC%A6-%E8%AF%AD%E6%B3%95/","keywords":"Lua","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"lhh","sameAs":[],"image":"/images/avatar.jpg"},"dateCreated":"2025-07-25T16:21:36+08:00","dateModified":"2025-07-29T10:49:52+08:00","datePublished":"2025-07-25T16:21:36+08:00","description":"","headline":"Lua实现类似C#的?.(Null条件运算符)语法","mainEntityOfPage":{"@type":"WebPage","@id":"https://lhh2001.github.io/2025/07/25/Lua%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BCC-%E7%9A%84-Null%E6%9D%A1%E4%BB%B6%E8%BF%90%E7%AE%97%E7%AC%A6-%E8%AF%AD%E6%B3%95/"},"publisher":{"@type":"Organization","name":"lhh","sameAs":[],"image":"/images/avatar.jpg","logo":{"@type":"ImageObject","url":"/images/avatar.jpg"}},"url":"https://lhh2001.github.io/2025/07/25/Lua%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BCC-%E7%9A%84-Null%E6%9D%A1%E4%BB%B6%E8%BF%90%E7%AE%97%E7%AC%A6-%E8%AF%AD%E6%B3%95/","keywords":"Lua","image":[]}</script>
   
 </head>
 <body>
@@ -81,7 +81,7 @@
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
 <span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/">技术相关</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2025-07-25T08:21:36.000Z">2025-07-25</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2025-07-29T02:44:04.923Z">2025-07-29</time></span></div></div></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2025-07-25T08:21:36.000Z">2025-07-25</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2025-07-29T02:49:52.009Z">2025-07-29</time></span></div></div></div>
     
     <div class="bottom only-title">
       
@@ -289,7 +289,7 @@
 <li>使用<code>or</code>判空的方法，在通过共享空表优化后，耗时可以显著地降低；</li>
 <li><code>if - else</code>使用局部变量缓存的优化效果不是很明显，在某些情况下甚至还不如暴力的写法，可能是因为测试用例中表的规模太小，索引操作的耗时没有成为瓶颈；</li>
 <li>两种元表的方法，<code>&#123;&#125;</code>比<code>function() end</code>要高效一些，因为后一种方法会多一层函数调用；</li>
-<li>使用<code>or</code>简化判空 和 给<code>nil</code>设置<code>__index = &#123;&#125;</code>元表 的耗时差不多，因为原理是相似的；</li>
+<li>优化后的<code>or</code>简化判空 和 给<code>nil</code>设置<code>__index = &#123;&#125;</code>元表 的耗时差不多，因为原理是相似的；</li>
 <li><code>?.</code>操作符性能大部分情况下是最优的，因为它通过直接修改底层实现，可以用最少的指令数完成操作。</li>
 </ul>
 <p>本文中使用的<code>Lua</code>和测试代码：<a target="_blank" rel="noopener" href="https://github.com/lhh2001/luatoy/tree/github/nilcondindex">lhh2001&#x2F;luatoy at github&#x2F;nilcondindex</a></p>
